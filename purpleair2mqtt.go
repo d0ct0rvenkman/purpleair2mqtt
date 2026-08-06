@@ -386,9 +386,7 @@ func monitor_to_point(monitor *purpleAirMonitor) (*influxclient.Point, error) {
 }
 
 func write_influx(status *purpleAirStatus, monitorA *purpleAirMonitor, monitorB *purpleAirMonitor) {
-	c, err := influxclient.NewHTTPClient(influxclient.HTTPConfig{
-		Addr: fmt.Sprintf("http://%s:%d", config.Influx.Hostname, config.Influx.Port),
-	})
+	c, err := influxclient.NewHTTPClient(influxclient.HTTPConfig{Addr: fmt.Sprintf("http://%s:%d", config.Influx.Hostname, config.Influx.Port), Username: config.Influx.Username, Password: config.Influx.Password})
 	if err != nil {
 		logger.Errorf("Error creating InfluxDB Client: ", err.Error())
 	}
